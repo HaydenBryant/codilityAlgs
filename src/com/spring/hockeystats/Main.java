@@ -7,17 +7,11 @@
 class Solution {
     public int solution(int X, int Y, int D) {
         // write your code in Java SE 8
-        // int jumps = 0;
-        // int tempx = X;
+        double fD = D;
+        double jumpsMath = Math.ceil((Y - X) / fD);
 
-        // while(tempx < Y){
-        //     tempx += D;
-        //     jumps++;
-        // }
+        int jumps = (int)jumpsMath;
 
-        // return jumps;
-
-        int jumps = (int) Math.ceil((Y - X) / D);
         return jumps;
     }
 }
