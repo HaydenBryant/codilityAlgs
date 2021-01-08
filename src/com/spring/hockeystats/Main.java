@@ -5,13 +5,14 @@
 // System.out.println("this is a debug message");
 
 class Solution {
-    public int solution(int X, int Y, int D) {
-        // write your code in Java SE 8
-        double fD = D;
-        double jumpsMath = Math.ceil((Y - X) / fD);
+    public int solution(int[] A) {
+        // write your code in Java SE 11
+        int aTotal = 0;
+        int trueTotal = A.length + 1;
 
-        int jumps = (int)jumpsMath;
+        for(int i = 0; i < A.length; i++){
+            aTotal += A[i];
+            trueTotal += i+1;
+        }
 
-        return jumps;
-    }
-}
+        return trueTotal - aTotal;
