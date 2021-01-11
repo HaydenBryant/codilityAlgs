@@ -10,9 +10,10 @@ class Solution {
         int leftTotal = A[0];
         int rightTotal = 0;
 
-        for(int i = 1; i < A.length; i++){
+        for(int i = 0; i < A.length; i++){
             rightTotal += A[i];
         }
+        rightTotal -= leftTotal;
 
         int dif = Math.abs(leftTotal - rightTotal);
         int minDif = dif;
