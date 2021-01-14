@@ -1,39 +1,30 @@
 // you can also use imports, for example:
 // import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 // you can write to stdout for debugging purposes, e.g.
 // System.out.println("this is a debug message");
-import java.util.Arrays;
 
 class Solution {
-    public int[] solution(int N, int[] A) {
+    public int solution(int[] A) {
         // write your code in Java SE 8
-        int[] counters = new int[N];
+        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+        int missingPair = 0;
 
-        Arrays.fill(counters, 0);
-
-        int start = 0;
-        int max = 0;
         for(int num : A){
-            int curr = num - 1;
-            if(num > N){
-                start = max;
-            } else if (counters[curr] < start) {
-                counters[curr] = start + 1;
+            if(!map.containsKey(num)){
+                map.put(num, 1);
             } else {
-                counters[curr] += 1;
-            }
-
-            if(num <= N && counters[curr] > max){
-                max = counters[curr];
+                map.put(num, map.get(num) + 1);
             }
         }
 
-        for(int i = 0; i < counters.length; i++){
-            if(counters[i] < start){
-                counters[i] = start;
+        for(int num : map.keySet()){
+            if(map.get(num) % 2 != 0){
+                missingPair = num;
             }
         }
-        return counters;
+        return missingPair;
     }
 }
