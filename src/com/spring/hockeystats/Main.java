@@ -3,21 +3,37 @@
 
 // you can write to stdout for debugging purposes, e.g.
 // System.out.println("this is a debug message");
+import java.util.Arrays;
 
 class Solution {
-    public int[] solution(int[] A, int K) {
+    public int[] solution(int N, int[] A) {
         // write your code in Java SE 8
-        for(int i = 0; i < K; i++){
-            int finalElm = A[A.length - 1];
-            int lastElm = A[0];
-            for(int j = 1; j < A.length; j++){
-                int currElm = A[j];
-                A[j] = lastElm;
-                lastElm = currElm;
+        int[] counters = new int[N];
+
+        Arrays.fill(counters, 0);
+
+        int start = 0;
+        int max = 0;
+        for(int num : A){
+            int curr = num - 1;
+            if(num > N){
+                start = max;
+            } else if (counters[curr] < start) {
+                counters[curr] = start + 1;
+            } else {
+                counters[curr] += 1;
             }
-            A[0] = finalElm;
+
+            if(num <= N && counters[curr] > max){
+                max = counters[curr];
+            }
         }
 
-        return A;
+        for(int i = 0; i < counters.length; i++){
+            if(counters[i] < start){
+                counters[i] = start;
+            }
+        }
+        return counters;
     }
 }
