@@ -1,7 +1,9 @@
 // you can also use imports, for example:
 // import java.util.*;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.ArrayList;
+
 
 // you can write to stdout for debugging purposes, e.g.
 // System.out.println("this is a debug message");
@@ -9,22 +11,25 @@ import java.util.Map;
 class Solution {
     public int solution(int[] A) {
         // write your code in Java SE 8
-        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
-        int missingPair = 0;
+        Arrays.sort(A);
+        int lowestNum = 1;
 
-        for(int num : A){
-            if(!map.containsKey(num)){
-                map.put(num, 1);
-            } else {
-                map.put(num, map.get(num) + 1);
+        for(int i = 0; i < A.length; i++){
+            if(A[i] <= 0){
+                continue;
             }
+
+            if(A[i] == lowestNum){
+                continue;
+            }
+            if(A[i] == lowestNum + 1){
+                lowestNum = A[i];
+                continue;
+            }
+
+            lowestNum = A[i] - 1;
         }
 
-        for(int num : map.keySet()){
-            if(map.get(num) % 2 != 0){
-                missingPair = num;
-            }
-        }
-        return missingPair;
+        return lowestNum;
     }
 }
