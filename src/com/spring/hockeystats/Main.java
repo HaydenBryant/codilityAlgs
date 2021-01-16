@@ -1,35 +1,36 @@
 // you can also use imports, for example:
 // import java.util.*;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.ArrayList;
-
+import java.util.Stack;
 
 // you can write to stdout for debugging purposes, e.g.
 // System.out.println("this is a debug message");
 
 class Solution {
-    public int solution(int[] A) {
+    public int solution(String S) {
         // write your code in Java SE 8
-        Arrays.sort(A);
-        int lowestNum = 1;
+        Stack<Character> stack = new Stack<Character>();
 
-        for(int i = 0; i < A.length; i++){
-            if(A[i] <= 0){
-                continue;
+        for(char c: S.toCharArray()){
+            if(c == '{' || c == '[' || c == '('){
+                stack.push(c);
+            } else if (c == '}'){
+                if(stack.isEmpty() || stack.pop() != '{'){
+                    return 0;
+                }
+            } else if (c == ']'){
+                if(stack.isEmpty() || stack.pop() != '['){
+                    return 0;
+                }
+            } else if (c == ')'){
+                if(stack.isEmpty() || stack.pop() != '('){
+                    return 0;
+                }
             }
-
-            if(A[i] == lowestNum){
-                continue;
-            }
-            if(A[i] == lowestNum + 1){
-                lowestNum = A[i];
-                continue;
-            }
-
-            lowestNum = A[i] - 1;
         }
-
-        return lowestNum;
+        if(stack.isEmpty()){
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }
