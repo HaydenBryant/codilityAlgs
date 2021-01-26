@@ -1,6 +1,5 @@
 // you can also use imports, for example:
 // import java.util.*;
-import java.util.HashMap;
 
 // you can write to stdout for debugging purposes, e.g.
 // System.out.println("this is a debug message");
@@ -8,31 +7,19 @@ import java.util.HashMap;
 class Solution {
     public int solution(int[] A) {
         // write your code in Java SE 8
-        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+        int maxDif = A[1] - A[0];
+        int currDif = 0;
 
-        for(int num : A){
-            if(!map.containsKey(num)){
-                map.put(num, 1);
+        for(int i = 2; i < A.length; i++){
+            currDif = A[i] - A[i - 1];
+            if(maxDif + currDif > currDif){
+                maxDif = maxDif + currDif;
             } else {
-                map.put(num, map.get(num) + 1);
+                maxDif = currDif;
             }
+            currDif = 0;
         }
 
-        int dominator = -1;
-
-        for(int num : map.keySet()){
-            if(map.get(num) > A.length / 2){
-                dominator = num;
-            }
-        }
-
-        for(int i = 0; i < A.length; i++){
-            if(A[i] == dominator){
-                dominator = i;
-                break;
-            }
-        }
-
-        return dominator;
+        return maxDif;
     }
 }
