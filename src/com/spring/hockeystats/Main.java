@@ -7,19 +7,24 @@
 class Solution {
     public int solution(int[] A) {
         // write your code in Java SE 8
-        int maxDif = A[1] - A[0];
-        int currDif = 0;
 
-        for(int i = 2; i < A.length; i++){
-            currDif = A[i] - A[i - 1];
-            if(maxDif + currDif > currDif){
-                maxDif = maxDif + currDif;
+
+        int globalMax = 0;
+        int localMax = 0;
+
+        for(int i = 1; i < A.length; i++){
+            int currMax = A[i] - A[i - 1];
+            if(currMax < localMax + currMax){
+                localMax = currMax + localMax;
             } else {
-                maxDif = currDif;
+                localMax = currMax;
             }
-            currDif = 0;
+
+            if(localMax > globalMax){
+                globalMax = localMax;
+            }
         }
 
-        return maxDif;
+        return globalMax;
     }
 }
